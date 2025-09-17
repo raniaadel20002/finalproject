@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const connectDB = async()=>{
     try {
-        await moongoose.connect(process.env.DATABASEURL)
+        await moongoose.connect(process.env.MONGO_URI)
         res.json({message: 'Database connected'}) 
     }
     catch (error) {
