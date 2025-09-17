@@ -1,13 +1,13 @@
 const express = require('express');
 const {Cart} = require('../models/cart');
 const router = express.Router();
-const {auth} = require('../middleware/auth');
+const {checkout} = require('../middleware/checkout');
 
 function calculateTotal(products) {
     return products.length * 100;
 }
 
-router.post('/buy/without-discount', auth, async (req, res) => {
+router.post('/buy/without-discount', checkout, async (req, res) => {
     const {username} = req.body;
     const cart = await Cart.findOne({username});
     if (!cart) {
@@ -17,7 +17,7 @@ router.post('/buy/without-discount', auth, async (req, res) => {
     res.json({total});
 });
 
-router.post('/buy/with-discount', auth, async (req, res) => {
+router.post('/buy/with-discount', checkout, async (req, res) => {
     const {username} = req.body;
     const cart = await Cart.findOne({username});
     if (!cart) {

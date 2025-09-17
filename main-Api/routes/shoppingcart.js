@@ -1,9 +1,9 @@
 const expess = require('express');
 const {Cart} = require('../models/cart');
 const router = expess.Router();
-const {auth} = require('../middleware/auth');
+const {checkout} = require('../middleware/checkout');
 
-router.post('/addcart', auth, async (req, res) => {
+router.post('/addcart', checkout, async (req, res) => {
     const {username, products} = req.body;
     let cart = await Cart.findOne({username});
     if (cart) {
@@ -17,7 +17,7 @@ router.post('/addcart', auth, async (req, res) => {
     }
 });
 
-router.delete('/deletecart', auth, async (req, res) => {
+router.delete('/deletecart', checkout, async (req, res) => {
     const {username} = req.body;
     let cart =await Cart.findOne({username});
     if (!cart){
